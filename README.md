@@ -1,20 +1,26 @@
-# PW3 — Django classroom project
+# Consulta de CEP
 
-An educational Django application. This repository is not a production deployment.
+API intermediária desenvolvida com Django REST Framework. Recebe um CEP, consulta a API do ViaCEP e retorna os dados de endereço selecionados.
 
-## Run locally
+## Executar localmente
 
-1. Create a Python virtual environment and install dependencies from `requirements.txt`.
-2. Copy `.env.example` to `.env` and replace the sample `DJANGO_SECRET_KEY` with a new random secret. The project loads `.env` using `python-dotenv`.
-3. Run `python manage.py migrate` to create a fresh local SQLite database.
-4. Run `python manage.py runserver`.
+No CMD, na pasta do projeto:
 
-Never upload `.env` or `db.sqlite3` to Git. To generate a Django secret locally, run:
-
-```sh
-python -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
+```cmd
+python -m venv .venv
+.venv\Scripts\activate
+pip install -r requirements.txt
+copy .env.example .env
+python manage.py migrate
+python manage.py runserver
 ```
 
-## Security note
+Antes de executar, substitua o valor de `DJANGO_SECRET_KEY` no arquivo `.env` por uma chave local.
 
-Earlier commits tracked a `.env` file and a SQLite database. These files were removed from the current branch, but their history may still be accessible. Any previously exposed secret must be rotated or invalidated. Do not use classroom keys or database records in deployed environments.
+## Endpoint
+
+```http
+GET /api/consulta-cep/01001000/
+```
+
+A resposta contém a mensagem de sucesso, logradouro, bairro, cidade e estado.
